@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  workflow_dispatch:
+
+jobs:
+  test-linux:
+    runs-on: ubuntu-latest
+  
+    steps:
+      - name: Checkout
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Run Tests
+        run: python3 -m unittest tests/test_rectangle.py 
+
+  test-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Run Tests
+        run: python -m unittest tests/test_rectangle.py 
